@@ -234,15 +234,15 @@
             .admin-sidebar {
                 transform: translateX(-100%);
             }
-
+            
             .admin-sidebar.show {
                 transform: translateX(0);
             }
-
+            
             .admin-topbar {
                 left: 0;
             }
-
+            
             .admin-content {
                 margin-left: 0;
             }
@@ -284,60 +284,60 @@
 
     <nav class="sidebar-nav">
         <div class="nav-section-title">Dashboard</div>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/dashboard') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/dashboard') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/dashboard">
             <i class="bi bi-speedometer2"></i>
             <span>Dashboard</span>
         </a>
 
         <div class="nav-section-title">Quản lý sản phẩm</div>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/products') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/products') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/products">
             <i class="bi bi-box-seam"></i>
             <span>Sản phẩm</span>
         </a>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/categories') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/categories') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/categories">
             <i class="bi bi-tags"></i>
             <span>Danh mục</span>
         </a>
 
         <div class="nav-section-title">Quản lý bán hàng</div>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/orders') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/orders') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/orders">
             <i class="bi bi-cart-check"></i>
             <span>Đơn hàng</span>
         </a>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/customers') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/customers') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/customers">
             <i class="bi bi-people"></i>
             <span>Khách hàng</span>
         </a>
 
         <div class="nav-section-title">Nội dung</div>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/reviews') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/reviews') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/reviews">
             <i class="bi bi-star"></i>
             <span>Đánh giá</span>
         </a>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/messages') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/messages') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/messages">
             <i class="bi bi-envelope"></i>
             <span>Tin nhắn</span>
         </a>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/blogs') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/blogs') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/blogs">
             <i class="bi bi-journal-text"></i>
             <span>Blog</span>
         </a>
 
         <div class="nav-section-title">Marketing</div>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/banners') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/banners') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/banners">
             <i class="bi bi-image"></i>
             <span>Banner</span>
         </a>
-        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/coupons') ? 'active' : ''}"
+        <a class="nav-link ${pageContext.request.requestURI.contains('/admin/coupons') ? 'active' : ''}" 
            href="${pageContext.request.contextPath}/admin/coupons">
             <i class="bi bi-ticket-perforated"></i>
             <span>Mã giảm giá</span>
