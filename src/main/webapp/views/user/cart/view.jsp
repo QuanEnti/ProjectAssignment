@@ -2,874 +2,1004 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liên hệ với chúng tôi - FashionShop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-color: #3b82f6;
-            --primary-dark: #2563eb;
-            --primary-light: #dbeafe;
-            --secondary-color: #1f2937;
-            --accent-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --success-color: #22c55e;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --border-radius: 0.75rem;
-            --border-radius-sm: 0.5rem;
-            --border-radius-lg: 1rem;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --gradient-primary: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            --gradient-secondary: linear-gradient(135deg, #10b981, #059669);
-        }
+<jsp:include page="../../common/header.jsp" />
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    :root {
+        --primary-color: #e91e63;
+        --primary-dark: #c2185b;
+        --primary-light: #f8bbd9;
+        --secondary-color: #2c3e50;
+        --accent-color: #3498db;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --gray-50: #f8f9fa;
+        --gray-100: #f1f3f4;
+        --gray-200: #e9ecef;
+        --gray-300: #dee2e6;
+        --gray-400: #ced4da;
+        --gray-500: #adb5bd;
+        --gray-600: #6c757d;
+        --gray-700: #495057;
+        --gray-800: #343a40;
+        --gray-900: #212529;
+        --white: #ffffff;
+        --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+        --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+        --shadow-lg: 0 8px 25px rgba(0,0,0,0.15);
+        --shadow-xl: 0 20px 40px rgba(0,0,0,0.1);
+        --border-radius: 12px;
+        --border-radius-lg: 16px;
+        --border-radius-xl: 20px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --gradient-primary: linear-gradient(135deg, var(--primary-color), #f06292);
+        --gradient-success: linear-gradient(135deg, var(--success-color), #2ecc71);
+        --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--gray-800);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
+    * {
+        box-sizing: border-box;
+    }
 
-        /* Header Styles */
-        .contact-header {
-            background: white;
-            box-shadow: var(--shadow-sm);
-            border-bottom: 1px solid var(--gray-200);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
 
-        .navbar {
-            padding: 1rem 0;
-        }
+    .cart-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        animation: fadeInUp 0.6s ease-out;
+    }
 
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color) !important;
-            text-decoration: none;
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
-
-        .navbar-nav .nav-link {
-            color: var(--gray-600);
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius-sm);
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: var(--primary-color);
-            background: var(--primary-light);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 3rem 0;
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            margin-bottom: 4rem;
-            padding: 2rem 0;
-            background: white;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .hero-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-icon i {
-            color: white;
-            font-size: 2.5rem;
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--gray-900), var(--primary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: var(--gradient-secondary);
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            box-shadow: var(--shadow-md);
-            animation: slideInDown 0.6s ease;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .success-message i {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-        }
-
-        /* Contact Content */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        /* Contact Info */
-        .contact-info {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-            height: fit-content;
-        }
-
-        .contact-info-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-info-title i {
-            color: var(--primary-color);
-            margin-right: 0.75rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: var(--gray-50);
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .contact-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .contact-item-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-light);
-            color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-
-        .contact-item-content h4 {
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-item-content p {
-            color: var(--gray-600);
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* Contact Form */
-        .contact-form-container {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .form-title i {
-            color: var(--primary-color);
-            margin-right: 0.75rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .form-label .required {
-            color: var(--danger-color);
-            margin-left: 0.25rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--gray-50);
-            color: var(--gray-800);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-control:valid {
-            border-color: var(--success-color);
-        }
-
-        .form-control::placeholder {
-            color: var(--gray-400);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-            max-height: 200px;
-        }
-
-        /* Submit Button */
-        .btn-submit {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-submit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn-submit:hover::before {
-            left: 100%;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .btn-submit:active {
+        to {
+            opacity: 1;
             transform: translateY(0);
         }
+    }
 
-        .btn-submit.loading {
-            pointer-events: none;
-            opacity: 0.8;
+    .cart-header {
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cart-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+    }
+
+    .cart-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin: 0 0 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .cart-title i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        background: var(--primary-light);
+        padding: 0.8rem;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .cart-subtitle {
+        color: var(--gray-600);
+        font-size: 1.1rem;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .empty-cart {
+        text-align: center;
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        padding: 4rem 2rem;
+        box-shadow: var(--shadow-md);
+        margin-top: 2rem;
+        border: 1px solid var(--gray-200);
+        animation: slideInUp 0.8s ease-out;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .empty-cart-icon {
+        font-size: 5rem;
+        color: var(--gray-400);
+        margin-bottom: 1.5rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .empty-cart h3 {
+        font-size: 1.75rem;
+        color: var(--gray-700);
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .empty-cart p {
+        color: var(--gray-600);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .btn-primary {
+        background: var(--gradient-primary);
+        color: var(--white);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        text-decoration: none;
+        color: var(--white);
+    }
+
+    .cart-content {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .cart-items {
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+    }
+
+    .cart-item {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+        transition: var(--transition);
+        position: relative;
+        animation: slideInLeft 0.6s ease-out;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+    .cart-item:hover {
+        background: var(--gray-50);
+        transform: translateX(4px);
+    }
+
+    .item-content {
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .item-image {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        border: 2px solid var(--gray-200);
+        transition: var(--transition);
+    }
+
+    .item-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-md);
+    }
+
+    .item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .item-details {
+        flex: 1;
+    }
+
+    .item-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--gray-900);
+        margin: 0 0 0.5rem 0;
+        line-height: 1.4;
+    }
+
+    .item-price {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--gray-50);
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--gray-300);
+    }
+
+    .quantity-btn {
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: var(--white);
+        color: var(--gray-700);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .quantity-btn:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: scale(1.1);
+    }
+
+    .quantity-display {
+        font-weight: 600;
+        color: var(--gray-900);
+        min-width: 2rem;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .item-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+    }
+
+    .item-total {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--success-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .remove-btn {
+        background: linear-gradient(135deg, var(--danger-color), #c0392b);
+        color: var(--white);
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .remove-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        background: linear-gradient(135deg, #c0392b, var(--danger-color));
+    }
+
+    .cart-summary {
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        padding: 2rem;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--gray-200);
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+        animation: slideInRight 0.6s ease-out;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .summary-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin: 0 0 1.5rem 0;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--gray-200);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .summary-title i {
+        color: var(--primary-color);
+        font-size: 1.25rem;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .summary-row:last-child {
+        border-bottom: none;
+        padding-top: 1.5rem;
+        margin-top: 1rem;
+        border-top: 2px solid var(--gray-200);
+    }
+
+    .summary-label {
+        color: var(--gray-700);
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .summary-value {
+        color: var(--gray-900);
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .summary-total {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--success-color);
+    }
+
+    .checkout-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--gray-200);
+    }
+
+    .checkout-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-checkout {
+        background: var(--gradient-success);
+        color: var(--white);
+        border: none;
+        padding: 1.25rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-checkout::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-checkout:hover::before {
+        left: 100%;
+    }
+
+    .btn-checkout:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        text-decoration: none;
+        color: var(--white);
+    }
+
+    .btn-vnpay {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: var(--white);
+        border: none;
+        padding: 1.25rem 1.5rem;
+        border-radius: var(--border-radius);
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-vnpay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-vnpay:hover::before {
+        left: 100%;
+    }
+
+    .btn-vnpay:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        text-decoration: none;
+        color: var(--white);
+    }
+
+    .security-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--gray-600);
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background: var(--gray-50);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--gray-200);
+    }
+
+    .security-badge i {
+        color: var(--success-color);
+        font-size: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 968px) {
+        .cart-content {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
-        .btn-submit.loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 2px solid white;
-            animation: spin 1s linear infinite;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+        .cart-summary {
+            position: static;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .cart-container {
+            margin: 1rem auto;
+            padding: 0 0.5rem;
         }
 
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        .cart-header {
+            padding: 1.5rem;
         }
 
-        /* Form Validation */
-        .form-control.is-invalid {
-            border-color: var(--danger-color);
-            background: #fef2f2;
+        .cart-title {
+            font-size: 2rem;
         }
 
-        .form-control.is-valid {
-            border-color: var(--success-color);
-            background: #f0fdf4;
+        .item-content {
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
         }
 
-        .invalid-feedback {
-            display: block;
-            color: var(--danger-color);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
+        .item-image {
+            width: 80px;
+            height: 80px;
         }
 
-        .valid-feedback {
-            display: block;
-            color: var(--success-color);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Back to Home Button */
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            background: white;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            z-index: 1000;
-        }
-
-        .back-button:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-            text-decoration: none;
-        }
-
-        .back-button i {
-            margin-right: 0.5rem;
-        }
-
-        /* Footer */
-        .contact-footer {
-            text-align: center;
-            padding: 3rem 0;
-            color: var(--gray-600);
-            background: white;
-            margin-top: 4rem;
+        .item-actions {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--gray-200);
         }
 
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+        .cart-summary {
+            padding: 1.5rem;
+        }
+    }
 
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .contact-info,
-            .contact-form-container {
-                padding: 2rem;
-            }
+    @media (max-width: 480px) {
+        .cart-title {
+            font-size: 1.75rem;
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 2rem 0;
-            }
-
-            .hero-section {
-                margin-bottom: 2rem;
-                padding: 1.5rem 1rem;
-            }
-
-            .hero-title {
-                font-size: 1.75rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-
-            .contact-info,
-            .contact-form-container {
-                padding: 1.5rem;
-            }
-
-            .back-button {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.5rem 1rem;
-            }
+        .item-content {
+            grid-template-columns: 1fr;
+            text-align: center;
         }
 
-        /* Accessibility Improvements */
-        .form-control:focus,
-        .btn-submit:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
+        .item-image {
+            justify-self: center;
         }
 
-        /* Animation for form submission */
-        .form-submitted {
-            animation: pulse 0.6s ease;
+        .checkout-buttons {
+            gap: 0.75rem;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        .btn-checkout,
+        .btn-vnpay {
+            padding: 1rem;
+            font-size: 1rem;
         }
+    }
 
-        /* Character Counter */
-        .char-counter {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-            text-align: right;
-            margin-top: 0.25rem;
+    /* Loading States */
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+        position: relative;
+    }
+
+    .loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top: 2px solid white;
+        animation: spin 1s linear infinite;
+        transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Accessibility Improvements */
+    .cart-item:focus-within {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    .btn-primary:focus,
+    .btn-checkout:focus,
+    .btn-vnpay:focus,
+    .remove-btn:focus,
+    .quantity-btn:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    /* Success Animation */
+    .success-animation {
+        animation: bounceIn 0.8s ease-out;
+    }
+
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.3);
         }
-
-        .char-counter.warning {
-            color: var(--warning-color);
+        50% {
+            opacity: 1;
+            transform: scale(1.05);
         }
-
-        .char-counter.danger {
-            color: var(--danger-color);
+        70% {
+            transform: scale(0.9);
         }
-    </style>
-</head>
-<body>
-    <!-- Back to Home Button -->
-    <a href="${pageContext.request.contextPath}/home" class="back-button">
-        <i class="bi bi-arrow-left"></i>
-        Về trang chủ
-    </a>
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>
 
-    <!-- Header -->
-    <header class="contact-header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/home">
-                        <i class="bi bi-bag-heart-fill me-2"></i>
-                        FashionShop
-                    </a>
-                    <ul class="navbar-nav d-flex flex-row">
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/products">Sản phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="${pageContext.request.contextPath}/contact">Liên hệ</a>
-                        </li>
-                    </ul>
+<div class="cart-container">
+    <!-- Cart Header -->
+    <div class="cart-header">
+        <h1 class="cart-title">
+            <i class="bi bi-cart-fill"></i>
+            Giỏ hàng của bạn
+        </h1>
+        <p class="cart-subtitle">Xem lại và quản lý các sản phẩm bạn đã chọn</p>
+    </div>
+
+    <c:choose>
+        <c:when test="${empty cart}">
+            <!-- Empty Cart State -->
+            <div class="empty-cart">
+                <div class="empty-cart-icon">
+                    <i class="bi bi-cart-x"></i>
                 </div>
-            </nav>
-        </div>
-    </header>
+                <h3>Giỏ hàng trống</h3>
+                <p>Bạn chưa có sản phẩm nào trong giỏ hàng.<br>Hãy khám phá những sản phẩm tuyệt vời của chúng tôi!</p>
+                <a href="${pageContext.request.contextPath}/home" class="btn-primary">
+                    <i class="bi bi-arrow-left"></i>
+                    Tiếp tục mua sắm
+                </a>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <!-- Cart Content -->
+            <div class="cart-content">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <c:forEach var="entry" items="${cart}" varStatus="status">
+                        <div class="cart-item" style="animation-delay: ${status.index * 0.1}s">
+                            <div class="item-content">
+                                <!-- Product Image -->
+                                <div class="item-image">
+                                    <img src="${pageContext.request.contextPath}/${entry.key.mainImage}" 
+                                         alt="${entry.key.name}" 
+                                         onerror="this.src='${pageContext.request.contextPath}/images/default.jpg'">
+                                </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="contact-container">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <div class="hero-icon">
-                    <i class="bi bi-chat-dots-fill"></i>
-                </div>
-                <h1 class="hero-title">Liên hệ với chúng tôi</h1>
-                <p class="hero-subtitle">
-                    Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy để lại thông tin, 
-                    chúng tôi sẽ phản hồi trong thời gian sớm nhất.
-                </p>
-            </section>
-
-            <!-- Success Message -->
-            <c:if test="${not empty success}">
-                <div class="success-message">
-                    <i class="bi bi-check-circle-fill"></i>
-                    <div>
-                        <strong>Gửi thành công!</strong>
-                        <p class="mb-0">${success}</p>
-                    </div>
-                </div>
-            </c:if>
-
-            <!-- Contact Content -->
-            <div class="contact-content">
-                <!-- Contact Information -->
-                <div class="contact-info">
-                    <h2 class="contact-info-title">
-                        <i class="bi bi-info-circle-fill"></i>
-                        Thông tin liên hệ
-                    </h2>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon">
-                            <i class="bi bi-geo-alt-fill"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Địa chỉ</h4>
-                            <p>
-                                Tòa nhà FPT University,<br>
-                                Khu Công nghệ cao Hòa Lạc,<br>
-                                Thạch Thất, Hà Nội
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon">
-                            <i class="bi bi-telephone-fill"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Số điện thoại</h4>
-                            <p>
-                                Hotline: 1900 6789<br>
-                                Di động: 0123 456 789
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon">
-                            <i class="bi bi-envelope-fill"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Email</h4>
-                            <p>
-                                support@fashionshop.com<br>
-                                info@fashionshop.com
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-item-icon">
-                            <i class="bi bi-clock-fill"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Giờ làm việc</h4>
-                            <p>
-                                Thứ 2 - Thứ 6: 8:00 - 18:00<br>
-                                Thứ 7 - Chủ nhật: 9:00 - 17:00
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="contact-form-container">
-                    <h2 class="form-title">
-                        <i class="bi bi-envelope-paper-fill"></i>
-                        Gửi tin nhắn
-                    </h2>
-
-                    <form action="${pageContext.request.contextPath}/contact" method="post" class="contact-form needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name" class="form-label">
-                                        Họ và tên <span class="required">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" id="name" name="name" required
-                                           placeholder="Nhập họ và tên của bạn"
-                                           autocomplete="name">
-                                    <div class="invalid-feedback">
-                                        Vui lòng nhập họ và tên của bạn.
+                                <!-- Product Details -->
+                                <div class="item-details">
+                                    <h3 class="item-name">${entry.key.name}</h3>
+                                    <div class="item-price">
+                                        <i class="bi bi-tag-fill"></i>
+                                        ${entry.key.price} VND
+                                    </div>
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn" onclick="updateQuantity(${entry.key.id}, -1)" 
+                                                aria-label="Giảm số lượng">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <span class="quantity-display">${entry.value}</span>
+                                        <button class="quantity-btn" onclick="updateQuantity(${entry.key.id}, 1)"
+                                                aria-label="Tăng số lượng">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email" class="form-label">
-                                        Email <span class="required">*</span>
-                                    </label>
-                                    <input type="email" class="form-control" id="email" name="email" required
-                                           placeholder="example@email.com"
-                                           autocomplete="email">
-                                    <div class="invalid-feedback">
-                                        Vui lòng nhập địa chỉ email hợp lệ.
+
+                                <!-- Item Actions -->
+                                <div class="item-actions">
+                                    <div class="item-total">
+                                        ${entry.key.price * entry.value} VND
                                     </div>
+                                    <button class="remove-btn" 
+                                            onclick="removeFromCart(${entry.key.id}, '${entry.key.name}')"
+                                            aria-label="Xóa sản phẩm">
+                                        <i class="bi bi-trash"></i>
+                                        Xóa
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </c:forEach>
+                </div>
 
-                        <div class="form-group">
-                            <label for="subject" class="form-label">Chủ đề</label>
-                            <input type="text" class="form-control" id="subject" name="subject"
-                                   placeholder="Nhập chủ đề tin nhắn (không bắt buộc)">
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h2 class="summary-title">
+                        <i class="bi bi-receipt"></i>
+                        Tổng kết đơn hàng
+                    </h2>
+
+                    <div class="summary-row">
+                        <span class="summary-label">Số lượng sản phẩm:</span>
+                        <span class="summary-value">
+                            <c:set var="totalItems" value="0" />
+                            <c:forEach var="entry" items="${cart}">
+                                <c:set var="totalItems" value="${totalItems + entry.value}" />
+                            </c:forEach>
+                            ${totalItems} sản phẩm
+                        </span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span class="summary-label">Tạm tính:</span>
+                        <span class="summary-value">${total} VND</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span class="summary-label">Phí vận chuyển:</span>
+                        <span class="summary-value">Miễn phí</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span class="summary-label summary-total">Tổng cộng:</span>
+                        <span class="summary-value summary-total">${total} VND</span>
+                    </div>
+
+                    <div class="checkout-section">
+                        <div class="checkout-buttons">
+                            <!-- Standard Checkout -->
+                            <a href="${pageContext.request.contextPath}/checkout" class="btn-checkout">
+                                <i class="bi bi-credit-card"></i>
+                                Tiến hành thanh toán
+                            </a>
+
+                            <!-- VNPay Checkout -->
+                            <form action="${pageContext.request.contextPath}/vnpay" method="post" style="margin: 0;">
+                                <input type="hidden" name="amount" value="${total}" />
+                                <button type="submit" class="btn-vnpay">
+                                    <i class="bi bi-wallet2"></i>
+                                    Thanh toán bằng VNPay
+                                </button>
+                            </form>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message" class="form-label">
-                                Nội dung tin nhắn <span class="required">*</span>
-                            </label>
-                            <textarea class="form-control" id="message" name="message" required
-                                      placeholder="Nhập nội dung tin nhắn bạn muốn gửi..."
-                                      maxlength="1000"></textarea>
-                            <div class="char-counter" id="charCounter">0/1000 ký tự</div>
-                            <div class="invalid-feedback">
-                                Vui lòng nhập nội dung tin nhắn.
-                            </div>
+                        <div class="security-badge">
+                            <i class="bi bi-shield-check"></i>
+                            Thanh toán an toàn & bảo mật
                         </div>
-
-                        <button type="submit" class="btn-submit" id="submitBtn">
-                            <i class="bi bi-send-fill me-2"></i>
-                            Gửi tin nhắn
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </c:otherwise>
+    </c:choose>
+</div>
 
-    <!-- Footer -->
-    <footer class="contact-footer">
-        <div class="container">
-            <p>&copy; 2024 FashionShop. Tất cả quyền được bảo lưu.</p>
-            <p>Cảm ơn bạn đã tin tưởng và lựa chọn FashionShop!</p>
-        </div>
-    </footer>
+<script>
+    // Quantity Update Function
+    function updateQuantity(productId, change) {
+        // Add loading state
+        const quantityControls = event.target.closest('.quantity-controls');
+        quantityControls.classList.add('loading');
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Form validation
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                const forms = document.getElementsByClassName('needs-validation');
-                const validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        } else {
-                            // Add loading state
-                            const btn = document.getElementById('submitBtn');
-                            btn.classList.add('loading');
-                            btn.disabled = true;
-                            form.classList.add('form-submitted');
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        // Simulate API call (replace with actual implementation)
+        setTimeout(() => {
+            const quantityDisplay = quantityControls.querySelector('.quantity-display');
+            let currentQuantity = parseInt(quantityDisplay.textContent);
+            let newQuantity = currentQuantity + change;
 
-        // Character counter for message field
-        const messageField = document.getElementById('message');
-        const charCounter = document.getElementById('charCounter');
-
-        messageField.addEventListener('input', function() {
-            const currentLength = this.value.length;
-            const maxLength = 1000;
-            
-            charCounter.textContent = `${currentLength}/${maxLength} ký tự`;
-            
-            if (currentLength > maxLength * 0.9) {
-                charCounter.classList.add('warning');
-            } else {
-                charCounter.classList.remove('warning');
+            if (newQuantity <= 0) {
+                removeFromCart(productId);
+                return;
             }
+
+            // Update display
+            quantityDisplay.textContent = newQuantity;
             
-            if (currentLength >= maxLength) {
-                charCounter.classList.add('danger');
-            } else {
-                charCounter.classList.remove('danger');
-            }
-        });
+            // Update item total
+            const cartItem = quantityControls.closest('.cart-item');
+            const priceText = cartItem.querySelector('.item-price').textContent;
+            const price = parseInt(priceText.replace(/[^\d]/g, ''));
+            const totalElement = cartItem.querySelector('.item-total');
+            totalElement.textContent = (price * newQuantity) + ' VND';
 
-        // Enhanced form interactions
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('focused');
-            });
+            // Update cart summary
+            updateCartSummary();
 
-            input.addEventListener('blur', function() {
-                this.parentElement.classList.remove('focused');
-                
-                // Real-time validation
-                if (this.value.length > 0) {
-                    if (this.checkValidity()) {
-                        this.classList.add('is-valid');
-                        this.classList.remove('is-invalid');
-                    } else {
-                        this.classList.add('is-invalid');
-                        this.classList.remove('is-valid');
-                    }
-                }
-            });
+            // Remove loading state
+            quantityControls.classList.remove('loading');
 
-            input.addEventListener('input', function() {
-                if (this.classList.contains('is-invalid') || this.classList.contains('is-valid')) {
-                    if (this.checkValidity()) {
-                        this.classList.add('is-valid');
-                        this.classList.remove('is-invalid');
-                    } else {
-                        this.classList.add('is-invalid');
-                        this.classList.remove('is-valid');
-                    }
-                }
-            });
-        });
+            // Add success animation
+            cartItem.classList.add('success-animation');
+            setTimeout(() => cartItem.classList.remove('success-animation'), 800);
 
-        // Auto-hide success message after 5 seconds
-        const successMessage = document.querySelector('.success-message');
-        if (successMessage) {
+            // Here you would typically make an AJAX call to update the backend
+            // fetch(`${pageContext.request.contextPath}/update-cart`, {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ productId: productId, quantity: newQuantity })
+            // });
+
+        }, 500);
+    }
+
+    // Remove from Cart Function
+    function removeFromCart(productId, productName = 'sản phẩm này') {
+        // Show confirmation dialog
+        const confirmed = confirm(`Bạn có chắc chắn muốn xóa "${productName}" khỏi giỏ hàng?`);
+        
+        if (confirmed) {
+            // Add loading state
+            const cartItem = event.target.closest('.cart-item');
+            cartItem.style.opacity = '0.5';
+            cartItem.style.pointerEvents = 'none';
+
+            // Animate removal
             setTimeout(() => {
-                successMessage.style.animation = 'slideInDown 0.5s ease reverse';
-                setTimeout(() => successMessage.remove(), 500);
-            }, 5000);
+                cartItem.style.animation = 'slideOutLeft 0.5s ease-in forwards';
+                setTimeout(() => {
+                    // Redirect to remove servlet
+                    window.location.href = `${pageContext.request.contextPath}/remove-from-cart?productId=${productId}`;
+                }, 500);
+            }, 300);
         }
+    }
 
-        // Smooth scroll to form on page load if there's an error
-        window.addEventListener('load', function() {
-            if (window.location.hash === '#form') {
-                document.querySelector('.contact-form-container').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
+    // Update Cart Summary
+    function updateCartSummary() {
+        let totalAmount = 0;
+        let totalItems = 0;
+
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const quantity = parseInt(item.querySelector('.quantity-display').textContent);
+            const total = parseInt(item.querySelector('.item-total').textContent.replace(/[^\d]/g, ''));
+            
+            totalItems += quantity;
+            totalAmount += total;
         });
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
+        // Update summary values
+        document.querySelector('.summary-value').textContent = totalItems + ' sản phẩm';
+        document.querySelectorAll('.summary-value')[1].textContent = totalAmount + ' VND';
+        document.querySelector('.summary-total.summary-value').textContent = totalAmount + ' VND';
+
+        // Update hidden input for VNPay
+        document.querySelector('input[name="amount"]').value = totalAmount;
+    }
+
+    // Enhanced button interactions
+    document.querySelectorAll('.btn-checkout, .btn-vnpay').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Add loading state
+            this.classList.add('loading');
+            
+            // Remove loading after form submission
+            setTimeout(() => {
+                this.classList.remove('loading');
+            }, 2000);
+        });
+    });
+
+    // Smooth scroll to checkout section on mobile
+    function scrollToCheckout() {
+        if (window.innerWidth <= 768) {
+            document.querySelector('.cart-summary').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
+    // Auto-save cart state (for future enhancement)
+    function saveCartState() {
+        const cartState = {
+            timestamp: Date.now(),
+            items: []
+        };
+
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const productId = item.querySelector('.remove-btn').onclick.toString().match(/\d+/)[0];
+            const quantity = parseInt(item.querySelector('.quantity-display').textContent);
+            cartState.items.push({ productId, quantity });
+        });
+
+        localStorage.setItem('cartState', JSON.stringify(cartState));
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add fade-in animation to existing items
+        document.querySelectorAll('.cart-item').forEach((item, index) => {
+            item.style.animationDelay = (index * 0.1) + 's';
+        });
+
+        // Auto-scroll to top on page load
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
                 window.location.href = '${pageContext.request.contextPath}/home';
             }
         });
+    });
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.contact-item, .form-group').forEach(el => {
-            observer.observe(el);
+    // Smooth animations for quantity changes
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.95)';
         });
 
-        // Add fade in animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</body>
-</html>
+        btn.addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+    });
+</script>
+
+<jsp:include page="../../common/footer.jsp" />
