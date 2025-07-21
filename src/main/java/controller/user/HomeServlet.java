@@ -23,6 +23,8 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            // 5. Forward đến trang chủ
+            request.getRequestDispatcher("views/home/index.jsp").forward(request, response);
             // 1. Load danh mục cho header
             CategoryDAO categoryDAO = new CategoryDAO();
             List<Category> categories = categoryDAO.getAll();
@@ -43,8 +45,7 @@ public class HomeServlet extends HttpServlet {
             List<BlogPost> blogs = blogPostDAO.getLatest(3); // optional
             request.setAttribute("blogs", blogs);
 
-            // 5. Forward đến trang chủ
-            request.getRequestDispatcher("views/home/index.jsp").forward(request, response);
+            
 
         } catch (Exception e) {
             e.printStackTrace();
