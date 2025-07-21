@@ -358,32 +358,7 @@ document.getElementById('published').addEventListener('change', function() {
 });
 
 // Preview functionality
-function previewPost() {
-    const title = document.getElementById('title').value;
-    const content = document.getElementById('content').value;
-    const excerpt = document.getElementById('excerpt').value;
 
-    if (!title || !content) {
-        alert('Vui lòng nhập tiêu đề và nội dung để xem trước');
-        return;
-    }
-
-    const previewContent = document.getElementById('previewContent');
-    previewContent.innerHTML = `
-        <article class="blog-preview">
-            <header class="mb-4">
-                <h1 class="display-5 fw-bold text-primary">${title}</h1>
-                ${excerpt ? `<p class="lead text-muted">${excerpt}</p>` : ''}
-                <hr class="my-4">
-            </header>
-            <div class="blog-content">
-                ${content.replace(/\n/g, '<br>')}
-            </div>
-        </article>
-    `;
-
-    new bootstrap.Modal(document.getElementById('previewModal')).show();
-}
 
 function continueEditing() {
     bootstrap.Modal.getInstance(document.getElementById('previewModal')).hide();
@@ -394,5 +369,8 @@ function saveDraft() {
     document.querySelector('form').submit();
 }
 </script>
+
+<script src="assets/js/previewPost.js"></script>
+
 
 <jsp:include page="/views/admin/common/footer.jsp" />
