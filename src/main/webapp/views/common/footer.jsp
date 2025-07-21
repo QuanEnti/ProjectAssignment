@@ -10,7 +10,11 @@
     <c:if test="${not empty msg}">
         <p style="color:green">${msg}</p>
     </c:if>
-
+    <li class="nav-item">
+    <a class="nav-link" href="${pageContext.request.contextPath}/views/user/chatbox.jsp">
+      ? Chat v?i AI
+    </a>
+    </li>
 </footer>
 </body>
 </html>

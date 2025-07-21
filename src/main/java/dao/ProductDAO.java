@@ -7,11 +7,21 @@ import util.JPAUtil;
 
 import java.util.List;
 import model.BlogPost;
-import model.ProductImage;
-import model.Review;
+import model.OrderDetail;
+
 
 public class ProductDAO {
-    public List<Product> getAll() {
+    public List<Product> findAllProductDetail() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                "SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviewList", Product.class)
+                .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    public List<Product> getAllProducts() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
             return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
@@ -19,6 +29,25 @@ public class ProductDAO {
             em.close();
         }
     }
+    public List<OrderDetail> findAll() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT d FROM OrderDetail d", OrderDetail.class)
+                     .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Product getProductById(int id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.find(Product.class, id);
+        } finally {
+            em.close();
+        }
+    }
+    
 
     public List<Product> getByCategory(int categoryId) {
         EntityManager em = JPAUtil.getEntityManager();

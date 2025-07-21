@@ -21,6 +21,17 @@ public class WishlistDAO {
             em.close();
         }
     }
+    public List<Product> getWishlistedProducts(Customer customer) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                "SELECT w.product FROM Wishlist w WHERE w.customer.id = :customerId", Product.class)
+                .setParameter("customerId", customer.getId())
+                .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
     public void delete(Wishlist w) {
         EntityManager em = JPAUtil.getEntityManager();

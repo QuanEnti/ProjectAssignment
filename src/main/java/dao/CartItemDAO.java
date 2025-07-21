@@ -45,6 +45,19 @@ public class CartItemDAO {
             em.close();
         }
     }
+    public List<CartItem> getCartItemsByCustomer(Customer customer) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery(
+                "SELECT c FROM CartItem c WHERE c.customer.id = :customerId", CartItem.class)
+                .setParameter("customerId", customer.getId())
+                .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    
     public void insert(CartItem item) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction trans = em.getTransaction();

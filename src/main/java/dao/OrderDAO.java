@@ -26,16 +26,27 @@ public class OrderDAO {
             em.close();
         }
     }
-
-        public List<Order> getRefundRequestedOrders() {
-    EntityManager em = JPAUtil.getEntityManager();
-    try {
-        return em.createQuery("SELECT o FROM Order o WHERE o.requestRefund = true AND o.status = 'Đã thanh toán'", Order.class)
-                 .getResultList();
-    } finally {
-        em.close();
+    public List<Order> getOrdersByCustomerId(int customerId) {
+        EntityManager em = JPAUtil.getEntityManager();
+       try {
+           return em.createQuery(
+               "SELECT o FROM Order o WHERE o.customer.id = :customerId", Order.class)
+               .setParameter("customerId", customerId)
+               .getResultList();
+       } finally {
+           em.close();
+       }
     }
-}
+   
+    public List<Order> getRefundRequestedOrders() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT o FROM Order o WHERE o.requestRefund = true AND o.status = 'Đã thanh toán'", Order.class)
+                     .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 
     public List<Order> getAll() {
         EntityManager em = JPAUtil.getEntityManager();
