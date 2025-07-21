@@ -10,7 +10,7 @@ import model.Product;
 import model.Review;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "ReviewSubmitServlet", urlPatterns = {"/submit-review"})
 public class ReviewSubmitServlet extends HttpServlet {
@@ -40,7 +40,7 @@ public class ReviewSubmitServlet extends HttpServlet {
             review.setProduct(product);
             review.setRating(rating);
             review.setComment(comment);
-            review.setCreatedAt(new Date());
+            review.setCreatedAt(LocalDateTime.now());
 
             ReviewDAO reviewDAO = new ReviewDAO();
             reviewDAO.save(review);
