@@ -13,7 +13,7 @@
     <label>Họ tên:</label><br/>
     <input type="text" name="name" required /><br/><br/>
 
-    <label>Email:</label><br/>
+    <label>Email hoặc username:</label><br/>
     <input type="email" name="email" required /><br/><br/>
 
     <label>Mật khẩu:</label><br/>

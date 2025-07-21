@@ -7,31 +7,23 @@
 
 <div class="product-detail">
 
-    <!-- Ảnh chính -->
-    <c:choose>
-        <c:when test="${not empty product.mainImage}">
-            <img src="${pageContext.request.contextPath}/${product.mainImage}" width="300" />
-        </c:when>
-        <c:otherwise>
-            <img src="${pageContext.request.contextPath}/images/default.jpg" width="300" />
-        </c:otherwise>
-    </c:choose>
+<!-- Ảnh chính -->
+<c:choose>
+    <c:when test="${not empty product.mainImage}">
+        <img src="${pageContext.request.contextPath}/${product.mainImage}" width="300" />
+    </c:when>
+    <c:otherwise>
+        <img src="${pageContext.request.contextPath}/img/product/default.jpg" width="300" />
+    </c:otherwise>
+</c:choose>
 
-    <!-- Ảnh phụ -->
-    <div class="gallery">
-        <c:forEach var="img" items="${images}">
-            <c:choose>
-                <c:when test="${not empty product.mainImage}">
-                    <c:set var="imageUrl" value="${product.mainImage}" />
-                </c:when>
-                <c:otherwise>
-                    <c:set var="imageUrl" value="images/default.jpg" />
-                </c:otherwise>
-            </c:choose>
+<!-- Ảnh phụ -->
+<div class="gallery">
+    <c:forEach var="img" items="${images}">
+        <img src="${pageContext.request.contextPath}/${img.imageUrl}" width="100" />
+    </c:forEach>
+</div>
 
-            <img src="${pageContext.request.contextPath}/${imageUrl}" width="300" />
-        </c:forEach>
-    </div>
 
     <p>💰 Giá: ${product.price} VND</p>
     <p>${product.description}</p>
