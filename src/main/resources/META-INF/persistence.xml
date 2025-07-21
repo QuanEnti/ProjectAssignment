@@ -9,6 +9,24 @@
         <class>model.Customer</class>
         <class>model.AdminUser</class>
         <class>model.Category</class>
+        <class>model.Product</class>
+        <class>model.ProductImage</class>
+        <class>model.ProductVariant</class>
+        <class>model.Order</class>
+        <class>model.OrderDetail</class>
+        <class>model.CartItem</class>
+        <class>model.Wishlist</class>
+        <class>model.Review</class>
+        <class>model.BlogPost</class>
+        <class>model.ContactMessage</class>
+        <class>model.NewsletterSubscriber</class>
+        <class>model.Banner</class>
+        <class>model.Coupon</class>
+        <class>model.PaymentMethod</class>
+        <class>model.ShippingMethod</class>
+
+
+
         <!-- thêm các class khác vào đây sau -->
 
         <properties>
