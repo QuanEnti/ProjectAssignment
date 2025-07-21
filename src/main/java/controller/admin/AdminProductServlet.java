@@ -32,7 +32,7 @@ public class AdminProductServlet extends HttpServlet {
 
         try {
             if (action == null) {
-                List<Product> list = productDAO.getAll();
+                List<Product> list = productDAO.getAllProducts();
                 request.setAttribute("productList", list);
                 request.getRequestDispatcher("/views/admin/product/list.jsp").forward(request, response);
 

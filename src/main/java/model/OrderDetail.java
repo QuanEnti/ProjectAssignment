@@ -25,7 +25,7 @@ public class OrderDetail {
 
     @Column(nullable = false)
     private double price;
-
+    
     public int getId() {
         return id;
     }

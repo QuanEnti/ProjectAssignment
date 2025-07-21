@@ -48,7 +48,16 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetails;
 
-    
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderDetail> orderDetailsList;
+
+    public List<OrderDetail> getOrderDetailsList() {
+        return orderDetailsList;
+    }
+
+    public void setOrderDetailsList(List<OrderDetail> orderDetailsList) {
+        this.orderDetailsList = orderDetailsList;
+    }
     // ✅ Đảm bảo có constructor hoặc setter/getter nếu không dùng Lombok
 
     public int getId() {

@@ -49,4 +49,12 @@ public class OrderDetailDAO {
             em.close();
         }
     }
+    public List<OrderDetail> findAll() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT d FROM OrderDetail d", OrderDetail.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }
